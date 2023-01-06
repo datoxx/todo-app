@@ -1,26 +1,66 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled, {ThemeProvider} from 'styled-components';
+import { lightTheme, darkTheme } from './themes';
+import { useState } from 'react';
 
-function App() {
+import Header from './components/Header';
+import Form from './components/Form';
+
+
+export interface ToDo {
+  text: string,
+  active: boolean,
+  id: number,
+}
+
+function App() {  
+
+  const [theme, setTheme] = useState<boolean>(true)
+  const [toDoLsit, setToDoList] = useState<ToDo[]>([])
+
+  const addTodo = (todo:ToDo ) => {
+    const todoListClone = toDoLsit.slice();
+    todoListClone.push(todo);
+    setToDoList(todoListClone);
+  }
+  
+console.log('todooo', toDoLsit)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme ? lightTheme : darkTheme }>
+        <Wrapper >
+          <Container>
+            <Header theme={theme} setTheme={setTheme} />
+            <Form  addTodo={addTodo} />
+          </Container>
+        </Wrapper>
+    </ThemeProvider>
   );
 }
 
 export default App;
+
+const Wrapper = styled.div`
+  background-color: ${props => props.theme.bgColor};
+  transition: background-color 0.5s ease-out;
+  background-image: url(${props => props.theme.bgImg});
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100vw;
+  height: 100vh;
+  padding: 0px 24px;
+  @media (min-width: 480px) {
+        background-image: url(${props => props.theme.desktopBgImage});
+    }
+`
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 327px;
+  @media (min-width: 480px) {
+       max-width: 540px
+  }
+`
+
