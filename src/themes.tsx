@@ -14,6 +14,9 @@ export const lightTheme = {
     textColor: '#494C6B',
     textDecorationlineColor: '#D1D2DA',
     border: '#E3E4F1',
+    listFooterText: '#9495A5',
+    hoverButton: '#494C6B',
+
 }
 
 export const darkTheme = {
@@ -27,4 +30,6 @@ export const darkTheme = {
     textColor: '#C8CBE7',
     textDecorationlineColor: '#4D5067',
     border: '#393A4B',
+    listFooterText: '#5B5E7E',
+    hoverButton: '#E3E4F1',
 }

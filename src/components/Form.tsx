@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { ToDo } from '../App';
-import CheckBox from './UI/CheckBox';
+import checkIcon from "../images/icon-check.svg";
 
 interface FormProps {
     addTodo: (e:ToDo) => void,
@@ -33,10 +33,15 @@ const Form = ({ addTodo }:FormProps) => {
 
     return (  
         <FormContainer onSubmit={handleSubmit}>
-            <CheckBox 
-                status={status}
-                setStatus={setStatus}
-            />
+            <CheckBoxContainer htmlFor="check" check={status} >
+                {status && <img  src={checkIcon} alt="check-icon" />}
+                <CheckBoxInput 
+                    id="check"
+                    type="checkbox" 
+                    checked={status} 
+                    onChange={() =>  setStatus(!status)} 
+                />
+            </CheckBoxContainer>
 
             <Input  
                 id="text"type="text" 
@@ -63,6 +68,30 @@ const FormContainer = styled.form`
     height: 48px;
     padding: 14px 20px;
     gap: 12px;
+`
+
+interface CheckBoxProp {
+    check: boolean,
+}
+
+const CheckBoxContainer = styled.label<CheckBoxProp>`
+    background: ${props => props.check ? "linear-gradient(135deg, #55DDFF 0%, #C058F3 100%)" : ""};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid ${props => props.check ? "linear-gradient(135deg, #55DDFF 0%, #C058F3 100%)" : "#393A4B"};
+    padding: 1px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+`
+
+const CheckBoxInput = styled.input`
+    display: none;
+    &:focus {
+        outline: none;
+    }
 `
 
 

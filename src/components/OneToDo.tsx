@@ -43,6 +43,7 @@ const ToDoContainer = styled.div`
     margin-left: 28px;
     width: 12px;
     height: 12px;
+    cursor: pointer;
   }
 
 `
