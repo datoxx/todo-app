@@ -11,6 +11,9 @@ export const lightTheme = {
     shadow: '0px 35px 50px -15px rgba(194, 195, 214, 0.5)',
     inputColor: '#393A4B',
     placeholderColor: '#9495A5',
+    textColor: '#494C6B',
+    textDecorationlineColor: '#D1D2DA',
+    border: '#E3E4F1',
 }
 
 export const darkTheme = {
@@ -21,4 +24,7 @@ export const darkTheme = {
     shadow: '0px 35px 50px -15px rgba(0, 0, 0, 0.5)',
     inputColor: '#C8CBE7',
     placeholderColor: '#767992',
+    textColor: '#C8CBE7',
+    textDecorationlineColor: '#4D5067',
+    border: '#393A4B',
 }

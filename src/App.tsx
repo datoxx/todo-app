@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import Header from './components/Header';
 import Form from './components/Form';
+import OneToDo from './components/OneToDo';
 
 
 export interface ToDo {
@@ -22,15 +23,36 @@ function App() {
     todoListClone.push(todo);
     setToDoList(todoListClone);
   }
+
+  const updateStatus = (id: number) => {
+    const todoListClone = toDoLsit.slice();
+    const selectTodo = todoListClone.find((todo:ToDo) => todo.id === id);
+    const todoindex = todoListClone.findIndex((todo:ToDo) => todo.id === id);
+    if(selectTodo) selectTodo.active = !selectTodo.active;  
+    todoListClone.splice(todoindex, 1, selectTodo as ToDo);
+
+    setToDoList(todoListClone);
+
+  }
+
+  const deleteToDo = (id: number) => {
+    const todoListClone = toDoLsit.slice();
+    const newToDoList:ToDo[] = todoListClone.filter((todo:ToDo) => todo.id !== id);
+    setToDoList(newToDoList)
+  }
   
-console.log('todooo', toDoLsit)
+
+console.log('todooogarett', toDoLsit)
 
   return (
     <ThemeProvider theme={theme ? lightTheme : darkTheme }>
         <Wrapper >
           <Container>
             <Header theme={theme} setTheme={setTheme} />
-            <Form  addTodo={addTodo} />
+            <Form  addTodo={addTodo} /> 
+            <ToDoListContainer>
+                  {toDoLsit.map((todo:ToDo) => <OneToDo key={todo.id} todo={todo} updateStatus={updateStatus} deleteToDo={deleteToDo} />)}
+            </ToDoListContainer>
           </Container>
         </Wrapper>
     </ThemeProvider>
@@ -62,5 +84,14 @@ const Container = styled.div`
   @media (min-width: 480px) {
        max-width: 540px
   }
+`
+
+const ToDoListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  background:  ${props => props.theme.componentBgColor};
+  box-shadow: ${props => props.theme.shadow};
+  border-radius: 5px;
+  margin: 16px 0px;
 `
 

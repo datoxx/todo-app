@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import checkIcon from "../images/icon-check.svg";
 import { useState } from 'react';
 import { ToDo } from '../App';
+import CheckBox from './UI/CheckBox';
 
 interface FormProps {
     addTodo: (e:ToDo) => void,
@@ -12,8 +12,11 @@ const Form = ({ addTodo }:FormProps) => {
     const [inputValue, setInputValue] = useState<string>('');
     const [status, setStatus] = useState<boolean>(false)
 
+
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if(inputValue === "") return;
 
         const newToDO: ToDo = {
             text: inputValue,
@@ -30,16 +33,10 @@ const Form = ({ addTodo }:FormProps) => {
 
     return (  
         <FormContainer onSubmit={handleSubmit}>
-
-            <CheckBoxWrapper htmlFor="check" check={status} >
-                {status && <img  src={checkIcon} alt="check-icon" />}
-                <CheckBox 
-                    id="check"
-                    type="checkbox" 
-                    checked={status} 
-                    onChange={() => setStatus(!status)} 
-                />
-            </CheckBoxWrapper>
+            <CheckBox 
+                status={status}
+                setStatus={setStatus}
+            />
 
             <Input  
                 id="text"type="text" 
@@ -68,29 +65,6 @@ const FormContainer = styled.form`
     gap: 12px;
 `
 
-interface CheckBoxProp {
-    check: boolean,
-}
-
-const CheckBoxWrapper = styled.label<CheckBoxProp>`
-    background: ${props => props.check ? "linear-gradient(135deg, #55DDFF 0%, #C058F3 100%)" : ""};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid ${props => props.check ? "linear-gradient(135deg, #55DDFF 0%, #C058F3 100%)" : "#393A4B"};
-    padding: 1px;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-`
-
-const CheckBox = styled.input`
-    display: none;
-    &:focus {
-        outline: none;
-    }
-`
 
 const Input = styled.input`
     all: unset;
