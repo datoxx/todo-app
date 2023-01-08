@@ -44,7 +44,15 @@ const ToDoContainer = styled.div`
     width: 12px;
     height: 12px;
     cursor: pointer;
+    @media (min-width: 480px) {
+        width: 17.5px;
+        height: 17.5px;
+    }
   }
+
+    @media (min-width: 480px) {
+        padding: 20px 24px;
+    }
 
 `
 
@@ -63,6 +71,10 @@ const CheckBoxContainer = styled.label<CheckBoxProp>`
     width: 20px;
     height: 20px;
     cursor: pointer;
+    @media (min-width: 480px) {
+        width: 24px;
+        height: 24px;
+     }
 `
 
 const CheckBoxInput = styled.input`
@@ -87,5 +99,10 @@ const Text = styled.p<TextProp>`
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    width: 210px;
+    width: 100%;
+    @media (min-width: 480px) {
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: -0.25px;
+     }
 `

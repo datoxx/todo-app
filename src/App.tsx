@@ -104,8 +104,8 @@ const Wrapper = styled.div`
   background-image: url(${props => props.theme.bgImg});
   background-repeat: no-repeat;
   background-size: contain;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh;
   padding: 0px 24px;
   @media (min-width: 480px) {
         background-image: url(${props => props.theme.desktopBgImage});
@@ -131,6 +131,9 @@ const ToDoListContainer = styled.div`
   box-shadow: ${props => props.theme.shadow};
   border-radius: 5px;
   margin-top: 16px;
+  @media (min-width: 480px) {
+    margin-top: 24px;
+  }
 `
 
 const ToDolistFooter = styled.div`
@@ -144,6 +147,15 @@ const ToDolistFooter = styled.div`
     line-height: 12px;
     letter-spacing: -0.166667px;
     color: ${props => props.theme.listFooterText};
+    @media (min-width: 480px) {
+      font-size: 14px;
+      line-height: 14px;
+      letter-spacing: -0.194444px;
+    }
+  }
+
+  @media (min-width: 480px) {
+    padding: 16px 24px;
   }
 `
 
@@ -157,6 +169,11 @@ const DeleteCompleted = styled.button`
   cursor: pointer;
   &:hover {
     color: ${props => props.theme.hoverButton}
+  }
+  @media (min-width: 480px) {
+    font-size: 14px;
+    line-height: 14px;
+    letter-spacing: -0.194444px;
   }
 `
 

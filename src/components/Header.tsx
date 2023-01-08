@@ -36,10 +36,24 @@ const Head = styled.div`
         letter-spacing: 10px;
         font-weight: bold;
         color: #fff;
+        @media (min-width: 480px) {
+            font-size: 40px;
+            line-height: 40px;
+            letter-spacing: 15px;
+         }
     }
 
     img {
        cursor: pointer; 
+       @media (min-width: 480px) {
+            width: 25px;
+            height: 25px;
+        }
+    }
+
+    @media (min-width: 480px) {
+        margin-top: 70px;
+        margin-bottom: 48px;
     }
 
 `

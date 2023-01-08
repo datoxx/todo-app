@@ -68,6 +68,11 @@ const FormContainer = styled.form`
     height: 48px;
     padding: 14px 20px;
     gap: 12px;
+    @media (min-width: 480px) {
+        height: 64px;
+        padding: 23px 24px;
+        gap: 24px;
+     }
 `
 
 interface CheckBoxProp {
@@ -85,6 +90,10 @@ const CheckBoxContainer = styled.label<CheckBoxProp>`
     width: 20px;
     height: 20px;
     cursor: pointer;
+    @media (min-width: 480px) {
+        width: 24px;
+        height: 24px;
+     }
 `
 
 const CheckBoxInput = styled.input`
@@ -105,7 +114,19 @@ const Input = styled.input`
     letter-spacing: -0.166667px;
     color: ${props => props.theme.inputColor};
   
-  &::placeholder {
-    color: ${props => props.theme.placeholderColor};
-  }
+    &::placeholder {
+        color: ${props => props.theme.placeholderColor};
+        @media (min-width: 480px) {
+            font-size: 18px;
+            line-height: 18px;
+            letter-spacing: -0.25px;
+        }
+    }
+    
+
+    @media (min-width: 480px) {
+        font-size: 18px;
+        line-height: 18px;
+        letter-spacing: -0.25px;
+    }
 `
