@@ -23,6 +23,7 @@ const ToDoList = ({toDoLsit, setToDoList}:ToDoListProps) => {
         todoListClone.splice(todoindex, 1, selectTodo as ToDo);
     
         setToDoList(todoListClone);
+        localStorage.setItem("todolist", JSON.stringify(todoListClone));
     
     }
     
@@ -31,6 +32,8 @@ const ToDoList = ({toDoLsit, setToDoList}:ToDoListProps) => {
         const newToDoList:ToDo[] = todoListClone.filter((todo:ToDo) => todo.id !== id);
 
         setToDoList(newToDoList)
+        localStorage.setItem("todolist", JSON.stringify(newToDoList));
+
     }
     
       const deleteAllComletedToDo = () => {
@@ -38,6 +41,8 @@ const ToDoList = ({toDoLsit, setToDoList}:ToDoListProps) => {
         const filterArray = todoListClone.filter((todo:ToDo) => todo.active !== true );
     
         setToDoList(filterArray);
+        localStorage.setItem("todolist", JSON.stringify(filterArray));
+
       }
       
     
@@ -71,6 +76,8 @@ const ToDoList = ({toDoLsit, setToDoList}:ToDoListProps) => {
         items.splice(result.destination.index, 0, reorderedItem);
 
         setToDoList(items);
+        localStorage.setItem("todolist", JSON.stringify(items));
+
     }
 
   return (

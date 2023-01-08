@@ -1,6 +1,6 @@
 import styled, {ThemeProvider} from 'styled-components';
 import { lightTheme, darkTheme } from './themes';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Header from './components/Header';
 import Form from './components/Form';
@@ -17,6 +17,12 @@ function App() {
 
   const [theme, setTheme] = useState<boolean>(true)
   const [toDoLsit, setToDoList] = useState<ToDo[]>([])
+
+  useEffect(() => {
+    const jsonStr = localStorage.getItem("todolist");
+    if (jsonStr == null) return;
+    setToDoList(JSON.parse(jsonStr));
+  }, []);
 
   return (
     <ThemeProvider theme={theme ? lightTheme : darkTheme }>

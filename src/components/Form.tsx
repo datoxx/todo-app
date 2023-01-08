@@ -19,6 +19,8 @@ const Form = ({ setToDoList, toDoLsit }:FormProps) => {
         todoListClone.push(todo);
     
         setToDoList(todoListClone);
+        localStorage.setItem("todolist", JSON.stringify(todoListClone));
+
       }
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
