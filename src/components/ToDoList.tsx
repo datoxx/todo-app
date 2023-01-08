@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import OneToDo from './OneToDo';
 import { ToDo } from '../App';
 import { useState } from 'react';
@@ -11,6 +12,7 @@ interface ToDoListProps {
 
 const ToDoList = ({toDoLsit, setToDoList}:ToDoListProps) => {
 
+    
     const [filter, setFilter] = useState('ALL')
 
     const updateStatus = (id: number) => {
@@ -62,30 +64,48 @@ const ToDoList = ({toDoLsit, setToDoList}:ToDoListProps) => {
         </>
     );
 
+    const handleOnDragEnd = (result:any) => {
+        if(!result.destination) return; 
+        const items = Array.from(toDoLsit);
+        const [reorderedItem] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorderedItem);
+
+        setToDoList(items);
+    }
 
 
   return (
     <>
-        <ToDoListContainer>
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+            <Droppable droppableId="characters">  
+                {(provided) => (         
+                    <ToDoListContainer {...provided.droppableProps} ref={provided.innerRef} >
+                        {showToDo()?.map((todo: ToDo, index) => (
+                        <Draggable key={todo.id} draggableId={todo.text} index={index} >
+                            {(provided, snapshot) => (
+                            <OneToDo   
+                                provided={provided}
+                                snapshot={snapshot}
+                                todo={todo}
+                                updateStatus={updateStatus}
+                                deleteToDo={deleteToDo}
+                            />
+                            )}
+                        </Draggable>
+                        ))}
+                         {provided.placeholder}
 
-            {showToDo()?.map((todo: ToDo) => (
-            <OneToDo
-                key={todo.id}
-                todo={todo}
-                updateStatus={updateStatus}
-                deleteToDo={deleteToDo}
-            />
-            ))}
-
-            <ToDolistFooter>
-                <span>{showToDo()?.length} items left</span>
-                <FilterDeshbordDesktop>{filterButton}</FilterDeshbordDesktop>
-                <DeleteCompleted onClick={deleteAllComletedToDo}>Clear Completed</DeleteCompleted>
-            </ToDolistFooter>
-            
-        </ToDoListContainer>
-
+                        <ToDolistFooter>
+                            <span>{showToDo()?.length} items left</span>
+                            <FilterDeshbordDesktop>{filterButton}</FilterDeshbordDesktop>
+                            <DeleteCompleted onClick={deleteAllComletedToDo}>Clear Completed</DeleteCompleted>
+                        </ToDolistFooter>
+                    </ToDoListContainer>
+                 )}
+            </Droppable>
+        </DragDropContext>
         <FilterDeshbord>{filterButton}</FilterDeshbord>
+        <DragAndDropText>Drag and drop to reorder list</DragAndDropText>
     </>
   );
 };
@@ -175,7 +195,7 @@ interface FilterButtonProps {
     select: boolean,
   }
   
-  const FilterButton = styled.input<FilterButtonProps>`
+const FilterButton = styled.input<FilterButtonProps>`
     all: unset;
     font-weight: 700;
     font-size: 14px;
@@ -184,6 +204,19 @@ interface FilterButtonProps {
     color: ${props => props.select ? "#3A7CFD" : props.theme.listFooterText};
     cursor: pointer;
     &:hover {
-      color: ${props => props.theme.hoverButton}
+        color: ${props => props.theme.hoverButton}
     }
-  `
+`
+const DragAndDropText = styled.span`
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    text-align: center;
+    letter-spacing: -0.194444px;
+    margin-top: 40px;
+    color: ${props => props.theme.listFooterText};
+
+    @media (max-width: 480px) {
+        margin-top: 49px;
+    }
+`

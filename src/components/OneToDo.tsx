@@ -5,16 +5,23 @@ import { ToDo } from '../App';
 
 
 interface OneToDoProps {
-    todo: ToDo;
-    updateStatus: (e:number) => void
-    deleteToDo: (e:number)=> void
+    todo: ToDo,
+    updateStatus: (e:number) => void,
+    deleteToDo: (e:number)=> void,
+    provided: any,
+    snapshot: any,
 }
 
-const OneToDo = ({todo, updateStatus, deleteToDo}:OneToDoProps) => {
+const OneToDo = ({todo, updateStatus, deleteToDo, provided, snapshot}:OneToDoProps) => {
 
 
     return (  
-        <ToDoContainer>
+        <ToDoContainer
+            ref={provided.innerRef}
+            snapshot={snapshot}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+        >
             <CheckBoxContainer  check={todo.active} >
                 {todo.active && <img  src={checkIcon} alt="check-icon" />}
                 <CheckBoxInput 
@@ -33,6 +40,8 @@ const OneToDo = ({todo, updateStatus, deleteToDo}:OneToDoProps) => {
 export default OneToDo;
 
 const ToDoContainer = styled.div`
+  background-color: ${(props) => props.theme.componentBgColor};
+  transition: background-color 0.5s ease-out;
   display: flex;
   align-items: center;
   padding: 16px 20px;
