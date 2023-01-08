@@ -73,8 +73,6 @@ const ToDoList = ({toDoLsit, setToDoList}:ToDoListProps) => {
         setToDoList(items);
     }
 
-    console.log("xxaxvo" + 1)
-
   return (
     <>
         <DragDropContext onDragEnd={handleOnDragEnd}>
