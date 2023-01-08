@@ -12,7 +12,6 @@ interface OneToDoProps {
 
 const OneToDo = ({todo, updateStatus, deleteToDo}:OneToDoProps) => {
 
-    // console.log('status', todo.active, todo.id )
 
     return (  
         <ToDoContainer>

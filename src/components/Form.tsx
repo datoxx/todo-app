@@ -4,14 +4,22 @@ import { ToDo } from '../App';
 import checkIcon from "../images/icon-check.svg";
 
 interface FormProps {
-    addTodo: (e:ToDo) => void,
+    toDoLsit: ToDo[],
+    setToDoList: (e:ToDo[]) => void
 }
 
-const Form = ({ addTodo }:FormProps) => {
+const Form = ({ setToDoList, toDoLsit }:FormProps) => {
 
     const [inputValue, setInputValue] = useState<string>('');
     const [status, setStatus] = useState<boolean>(false)
 
+
+    const addTodo = (todo:ToDo ) => {
+        const todoListClone = toDoLsit.slice();
+        todoListClone.push(todo);
+    
+        setToDoList(todoListClone);
+      }
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
