@@ -73,6 +73,7 @@ const ToDoList = ({toDoLsit, setToDoList}:ToDoListProps) => {
         setToDoList(items);
     }
 
+    console.log("xxaxvo" + 1)
 
   return (
     <>
@@ -81,7 +82,7 @@ const ToDoList = ({toDoLsit, setToDoList}:ToDoListProps) => {
                 {(provided) => (         
                     <ToDoListContainer {...provided.droppableProps} ref={provided.innerRef} >
                         {showToDo()?.map((todo: ToDo, index) => (
-                        <Draggable key={todo.id} draggableId={todo.text} index={index} >
+                        <Draggable key={todo.id} draggableId={todo.text + todo.id} index={index} >
                             {(provided, snapshot) => (
                             <OneToDo   
                                 provided={provided}
